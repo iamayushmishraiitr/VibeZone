@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int      @id @default(autoincrement())
+  username       String   @unique
+  email          String
+  password       String
+  bio            String   @default("Add Bio Here")
+  userimage      String   @default("./src/assets/fileupload.svg")
+  liked          String[]
+  saved          String[]
+  request        String[]
+  requestrecieve String[]
+  followers      String[]
+  following      String[]
+  post           String[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  userId    Int
+  username  String
+  userimage String
+  useremail String
+  tags      String
+  location  String
+  caption   String
+  liked     String[]
+  saved     String[]
+}
