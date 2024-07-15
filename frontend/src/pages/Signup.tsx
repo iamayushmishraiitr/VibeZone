@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Loading from "../components/Loader";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const schema = z.object({
   username: z
@@ -42,10 +43,10 @@ const Signin: React.FC = () => {
           email: data.email
       });
       setLoading(false);
-      alert("Account Created successfully");
+      toast.success("Account Created successfully");
       navigate('/')
     } catch {
-      alert("Failed to Create Account");
+      toast.error("Failed to Create Account");
     }
   };
 

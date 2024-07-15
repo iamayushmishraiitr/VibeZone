@@ -39,7 +39,7 @@ const Home = () => {
       ) : (
         <div className="h-[100vh] w-[100%] flex">
           <ul className="flex flex-col w-[800px] gap-9">
-            <div className="w-[100%] h-[100%] flex flex-col   overflow-auto scrollbar-hide">
+            <div className="w-[100%] h-[100%] flex flex-col   overflow-auto  hide-scrollbar">
               <Postcards post={post} /> 
             </div>
           </ul>

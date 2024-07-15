@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router";
-
+import EditIcon from '@mui/icons-material/Edit';
 const Profile = () => {
   const [data, setData] = useState<any>([]);
   const [data2, setData2] = useState<any>([]);
@@ -19,20 +19,7 @@ const Profile = () => {
       })
       .catch((error) => console.log(error));
   }, []);
-  if(localStorage.getItem("userId")===id)
-    {
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/saved", {
-        params: { id: id },
-      })
-      .then((res) => {
-        setData2(res.data);
-      })
-      .catch((error) => console.log(error));
-  }, [state]); 
-}
-
+  
   const navigate = useNavigate();
   const editProfile = async () => {
     navigate("/EditProfile");
@@ -42,14 +29,14 @@ const Profile = () => {
   };
   const val= data.val  ;
   const arr= data.arr3 ;
-  console.log(val ," Val  ")
+  //console.log(val ," Val  ")
   return (
     <div className="bg-black text-white h-[100vh] w-[100vw] items-center justify-center">
       <div className="flex justify-between w-[100%] h-[20%]">
         <div className="flex w-[100%] h-[70%] ">
           <div className="flex flex-row  w-[10%]">
             <img
-              src={val?.userimage}
+              src={val?.userimage ==="" ?"../../src/assets/fileupload.svg":val?.userimage }
               alt="Profile image"
               className="rounded-full h-[9.2rem] w-[100%]"
             />
@@ -65,7 +52,7 @@ const Profile = () => {
                   </h1>
                   <h1 className="text-xl">Posts</h1>
                 </div>
-                <div className="flex flex-row bg-slate-800 items-center justify-center w-34">
+                <div className="flex flex-row bg-slate-800 items-center justify-center w-34" >
                   <h1 className="mr-2 text-xl text-purple-400">{val && val.followers.length}</h1>
                   <h1 className="text-xl">Followers</h1>
                 </div>
@@ -78,9 +65,11 @@ const Profile = () => {
           </div>
         </div>
         {localStorage.getItem("userId") === id && (
-          <div className="mr-5 mt-3  cursor-pointer" onClick={editProfile}>
-            Edit Profile
-          </div>
+           <div className="flex flex-row  cursor-pointer justify-center pt-2" onClick={editProfile}>
+          <EditIcon  sx={{ color: "white", fontSize: "34px" }}/>
+          <h1 className="text-xl  ml-2">Edit Profile</h1>
+        </div>
+    
         )}
       </div>
       <div className="flex gap-5 h-[10%] mb-1">

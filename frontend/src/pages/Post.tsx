@@ -17,6 +17,7 @@ import { useState } from "react";
 import axios from "axios";
 import Loader from "@/components/Loader";
 import { AddPhotoAlternateOutlined } from "@mui/icons-material";
+import toast from "react-hot-toast";
 const PostValidation = z.object({
   caption: z
     .string()
@@ -43,14 +44,13 @@ export default function Post() {
         caption: values.caption,
         userId: localStorage.getItem("userId"),
       });
-      console.log("values", values);
       setLoader(true);
-      if (res) alert("posted Succesfully");
+      if (res) toast.success("posted Succesfully");
       window.location.reload();
     } catch (error) {
       console.log(error);
       setLoader(true);
-      alert("Could Not Post ");
+     toast.error("Could Not Post");
       window.location.reload();
     }
   }
@@ -59,7 +59,7 @@ export default function Post() {
   };
 
   return (
-    <div className="h-[100vh] w-[100vw] bg-black pt-4 ">
+    <div className="h-[100vh] w-[100vw] bg-black pt-4 pl-4">
       {loader ? (
         <div className="w-[74%]">
           {" "}
@@ -71,7 +71,7 @@ export default function Post() {
           <AddPhotoAlternateOutlined
               sx={{ color: "white", fontSize: "36px" }}
             />
-            <h1 className="text-3xl mb-4 ">Create Post</h1>
+            <h1 className="text-4xl mb-4 ">Create Post</h1>
           </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -80,7 +80,7 @@ export default function Post() {
                 name="file"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-2xl font-bold">
+                    <FormLabel className="text-xl font-bold">
                       Add Picture
                     </FormLabel>
                     <FormControl>
@@ -99,7 +99,7 @@ export default function Post() {
                 name="caption"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-2xl font-bold">
+                    <FormLabel className="text-xl font-bold">
                       Caption
                     </FormLabel>
                     <FormControl className="w-1000">
@@ -117,7 +117,7 @@ export default function Post() {
                 name="tags"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-2xl font-bold">
+                    <FormLabel className="text-xl font-bold">
                       Add Tags
                     </FormLabel>
                     <FormControl>
@@ -135,7 +135,7 @@ export default function Post() {
                 name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-2xl font-bold">
+                    <FormLabel className="text-xl font-bold">
                       Add Location
                     </FormLabel>
                     <FormControl>

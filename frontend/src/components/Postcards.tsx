@@ -15,7 +15,7 @@ if (id) {
             <div className=' flex justify-between'>
             <div className="flex flex-row w-[100%] h-[100%]">
               <div className="flex flex-row  w-[140px] h-[140px]">
-                <img src={item?.userimage} className="w-[full] h-[full] rounded-full " alt="Profile" />
+                <img src={item?.userimage==="" ?"../src/assets/fileupload.svg" :item?.userimage} className="w-[full] h-[full] rounded-full " alt="Profile" />
               </div>
               <div className="flex flex-col ml-5 pt-3">
                 <p className='text-3xl mb-1.5'>{item?.username}</p>

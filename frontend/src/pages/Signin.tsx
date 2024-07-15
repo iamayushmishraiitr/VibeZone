@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Loading from "../components/Loader";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const schema = z.object({
   username: z
@@ -42,11 +43,11 @@ const Signin: React.FC = () => {
       localStorage.setItem("userId", res.data.message);
       localStorage.setItem("token", res.data.token);
       setLoading(false);
-      alert("logged in successfully");
+      toast.success("logged in successfully");
       navigate('/')
       window.location.reload()
     } catch {
-      alert("Failed to log in");
+      toast.error("Failed to log in");
     }
   };
 

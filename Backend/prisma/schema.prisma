@@ -13,7 +13,7 @@ model User {
   email          String
   password       String
   bio            String   @default("Add Bio Here")
-  userimage      String   @default("./src/assets/fileupload.svg")
+  userimage      String    @default("")
   liked          String[]
   saved          String[]
   request        String[]
@@ -28,7 +28,7 @@ model Post {
   imageUrl  String
   userId    Int
   username  String
-  userimage String
+  userimage String  
   useremail String
   tags      String
   location  String

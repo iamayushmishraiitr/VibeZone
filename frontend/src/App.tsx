@@ -11,10 +11,13 @@ import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
 import Likes from './pages/Likes'
 import Explore from './pages/Explore'
+import { Toaster } from 'react-hot-toast'
 
 export default function App() {
 const Token= localStorage.getItem("token")
   return (
+    <>
+    <Toaster/>
     <Routes>
   {!Token && (
     <>
@@ -36,6 +39,7 @@ const Token= localStorage.getItem("token")
     </Route>
   )}
 </Routes>
+</>
 
   )
 }

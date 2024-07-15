@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,63 +14,86 @@ import { Textarea } from "@/components/ui/textarea";
 import PostUploader from "@/components/PostUploader";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loader from "@/components/Loader";
+import toast from "react-hot-toast";
+import EditIcon from '@mui/icons-material/Edit';
 const PostValidation = z.object({
-  Bio: z.string(),
+  Bio: z.string().optional(),
   file: z.custom<File[]>(),
 });
-type Data = {
-  bio:string,
-  email: string ,
-  id :number ,
-  image:string ,
-  saved :string[] ,
-  username: string
-};
-export default function EditProfile() {
 
+type Data = {
+  bio: string;
+  email: string;
+  id: number;
+  image: string;
+  saved: string[];
+  username: string;
+};
+
+export default function EditProfile() {
   const [imgUrl, setImgUrl] = useState<string[]>([]);
   const [data, setData] = useState<Data | null>(null);
   const defaultBio = data?.bio;
+  const [loader, setLoader] = useState(false);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/editprofile", {
-        params: { id: localStorage.getItem("userId") },
-      })
-      .then((res) => setData(res.data))
-      .catch((error) => console.log(error));
+    const fetchData = async () => {
+      setLoader(true);
+      try {
+        const res = await axios.get("http://localhost:3000/editprofile", {
+          params: { id: localStorage.getItem("userId") },
+        });
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoader(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
-
   });
 
   async function onSubmit(values: z.infer<typeof PostValidation>) {
-  
     try {
-      const res = await axios.put("http://localhost:3000/editprofile", {
-        values, imgUrl ,id:localStorage.getItem('userId')
+      setLoader(true);
+      await axios.put("http://localhost:3000/editprofile", {
+        values,
+        imgUrl,
+        id: localStorage.getItem("userId"),
       });
-      alert("Updated successfully")
+       toast.success("Profile Edited ")
     } catch (error) {
-      alert("data could not be Edited");
+      toast.error("Profile could not be edited")
+    } finally {
+      setLoader(false);
     }
   }
 
   const handleDataFromChild = (data: string[]) => {
     setImgUrl(data);
   };
-console.log("Edit Profile   ",data)
+
   return (
-    <div className="text-white bg-black w-full ">
+    <div className="text-white bg-black w-full pt-4 overflow-auto hide hide-scrollbar ">
+      <div className="flex flex-row justify-center">
+        <EditIcon  sx={{ color: "white", fontSize: "34px" }}/>
+        <h1 className="text-3xl ml-2">Edit Profile</h1>
+      </div>
+      {loader && <Loader />}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
+          <FormField
             control={form.control}
             name="file"
             render={({ field }) => (
-              <FormItem > 
-                <FormLabel>Add Picture</FormLabel>
+              <FormItem>
+                <FormLabel className="text-xl font-bold">Add Picture</FormLabel>
                 <FormControl>
                   <PostUploader
                     fieldChange={field.onChange}
@@ -89,10 +111,10 @@ console.log("Edit Profile   ",data)
             name="Bio"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Bio</FormLabel>
+                <FormLabel className="text-xl font-bold">Bio</FormLabel>
                 <FormControl>
                   <Textarea
-                    className="w-[600px] h-[80px] md:w-99 text-black"
+                    className="w-[600px] h-[80px] md:w-99 text-white"
                     {...field}
                     defaultValue={defaultBio}
                   />
@@ -101,11 +123,13 @@ console.log("Edit Profile   ",data)
               </FormItem>
             )}
           />
-          <div className=" flex gap-2 ">
+          <div className="flex gap-2 ">
             <Button className="bg-purple-400" type="submit">
               Submit
             </Button>
-            <Button type="submit">Cancel</Button>
+            <Button type="button" onClick={() => form.reset()}>
+              Cancel
+            </Button>
           </div>
         </form>
       </Form>

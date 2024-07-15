@@ -3,7 +3,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const router = express.Router();
 router.get("/", async (req: Request, res: Response) => {
-  const val = req.query.id;
+  try {
+    const val = req.query.id;
   if(!val)  return res.status(404)
    const val2= parseInt(val.toString())
    const arr=  await prisma.user.findUnique({
@@ -12,10 +13,9 @@ router.get("/", async (req: Request, res: Response) => {
     },
    }
   )
-  console.log(arr ," asdsads  adsa This is arr ")
-if(!arr) return res.status(404).send("No arr ")
+if(!arr) return res.status(404)
      let arr2= arr?.post 
-   if(!arr2) return res.status(404).send("NO arr2   ")
+   if(!arr2) return res.status(404)
     let arr3= [] ;
     for(let i=0 ;i<arr2.length;i++)
       {
@@ -24,8 +24,12 @@ if(!arr) return res.status(404).send("No arr ")
            })
            arr3.push(resp)
       }
-      console.log("This is profile ," , arr3  , "  " , val )
+    
    res.status(200).send({arr3 : arr3 , val:arr})
+  } catch (error) {
+    res.status(404).send("error Occured")
+  }
+  
 }
 )
 export default router;

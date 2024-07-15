@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Followers from "./Followers";
+
 type User = {
   id     :        number      
   username  :     string  
@@ -17,15 +18,14 @@ type User = {
 };
 
 const UserCard = ({user}:{user:User}) => {
-  console.log(user)
   return (
     <div className='flex flex-col'>
     <Link to={`/people/${user.id}`} >
       
     <img
-      src={user.userimage }
+      src={user?.userimage===""? "../src/assets/fileupload.svg" : user?.userimage}
       alt="creator"
-      className="rounded-full w-16 h-16"
+      className="rounded-full w-[60px] h-[60px]"
     />
 
     <div className="flex-center flex-col ">

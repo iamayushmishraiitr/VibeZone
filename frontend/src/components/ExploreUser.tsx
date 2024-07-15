@@ -2,6 +2,7 @@
   import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 const ExploreUser = (props:any) => {
     const item= props.item
     const [con, setCon] = useState(true);
@@ -15,10 +16,11 @@ const ExploreUser = (props:any) => {
         id1: localStorage.getItem("userId"),
         data:JSON.stringify(data1)
       });
+        toast.success("Request Accepted")
          window.location.reload()
     } catch (err) {
       setCon(true);
-      alert("Error occured");
+     toast.error("Error occured") ;
     }
   };
   const Delete = async (id2:any) => {
@@ -30,17 +32,18 @@ const ExploreUser = (props:any) => {
           id1: localStorage.getItem("userId"),
         },
       });
+      toast.success("Request Declined Successfully")
       window.location.reload()
     } catch (err) {
       setDel(true);
-      alert("error occured");
+      toast.error("Error occured") ;
     }
   };
   return (
     <>
     <div className="h-[100%]">
       <img
-        src={item.userimage}
+        src={item.userimage==="" ?"../src/assets/fileupload.svg" : item.userimage}
         className="rounded-full mt-3 w-[8rem]  ml-7 mr-12 h-[8rem]"
       ></img>
     </div>
