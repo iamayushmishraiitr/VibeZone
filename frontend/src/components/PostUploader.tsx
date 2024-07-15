@@ -51,13 +51,13 @@ export default function PostUploader({
       ) : (
         <div >
           {imageurl  ? (
-             <img className="h-[500px] w-[800px]  items-center"
-             src="./src/assets/fileupload.svg"
+             <img className="h-[400px] w-[600px]  items-center"
+             src= {imageurl}
              alt="Place The image Here"
           />
           ) : (
             <div className="flex flex-col bg-slate-950 items-center h-[500px] w-[800px]">
-            <img className="h-[400px] w-[600px]  items-center"
+            <img className="h-[300px] w-[600px]  items-center"
               src="./src/assets/fileupload.svg"
               alt="Place The image Here"
            />

@@ -32,7 +32,7 @@ const ExploreUser = (props:any) => {
           id1: localStorage.getItem("userId"),
         },
       });
-      toast.success("Request Declined Successfully")
+      toast.success("Deleted Successfully")
       window.location.reload()
     } catch (err) {
       setDel(true);

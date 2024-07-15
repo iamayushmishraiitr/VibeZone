@@ -1,7 +1,6 @@
 import Loader from "@/components/Loader";
 import Postcards from "@/components/Postcards";
 import TopCreators from "@/components/TopCreators";
-import UserCard from "@/components/UserCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -33,13 +32,13 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="h-[100vh] w-[100vw]  bg-slate-900 text-white">
+    <div className="h-[100vh] w-[100vw] pl-3 bg-slate-900 text-white">
       {loader ? ( 
          <div className="w-[74%]"> <Loader /> </div>
       ) : (
         <div className="h-[100vh] w-[100%] flex">
           <ul className="flex flex-col w-[800px] gap-9">
-            <div className="w-[100%] h-[100%] flex flex-col   overflow-auto  hide-scrollbar">
+            <div className="w-[100%] h-[100%] flex flex-col   overflow-auto scrollbar-hide">
               <Postcards post={post} /> 
             </div>
           </ul>

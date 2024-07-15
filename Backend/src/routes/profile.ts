@@ -27,7 +27,7 @@ if(!arr) return res.status(404)
     
    res.status(200).send({arr3 : arr3 , val:arr})
   } catch (error) {
-    res.status(404).send("error Occured")
+    res.status(404).send("error occured")
   }
   
 }

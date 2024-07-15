@@ -18,6 +18,7 @@ import axios from "axios";
 import Loader from "@/components/Loader";
 import { AddPhotoAlternateOutlined } from "@mui/icons-material";
 import toast from "react-hot-toast";
+import { Navigate, useNavigate } from "react-router";
 const PostValidation = z.object({
   caption: z
     .string()
@@ -45,8 +46,9 @@ export default function Post() {
         userId: localStorage.getItem("userId"),
       });
       setLoader(true);
-      if (res) toast.success("posted Succesfully");
-      window.location.reload();
+      if(res) toast.success("posted Succesfully");
+      setTimeout(()=>window.location.reload() ,1000)
+      
     } catch (error) {
       console.log(error);
       setLoader(true);
@@ -57,8 +59,9 @@ export default function Post() {
   const handleDataFromChild = (data: string[]) => {
     setImgUrl(data);
   };
-
+  const navigate= useNavigate() ;
   return (
+  
     <div className="h-[100vh] w-[100vw] bg-black pt-4 pl-4">
       {loader ? (
         <div className="w-[74%]">
@@ -148,8 +151,8 @@ export default function Post() {
               <div className=" flex gap-2 items-center justify-center">
                 <Button className="bg-purple-400" type="submit">
                   Submit
-                </Button>
-                <Button type="submit">Cancel</Button>
+                </Button> 
+                <Button type="button"  onClick={()=> (navigate('/'))}>Cancel</Button>
               </div>
             </form>
           </Form>

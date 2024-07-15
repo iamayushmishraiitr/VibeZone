@@ -11,6 +11,8 @@ import editProfile from "./routes/Editprofile"
 import userRoute from "./routes/user"
 import followrequest from "./routes/followrequest"
 import explore from "./routes/explore"
+import  getFollowing from "./routes/getFollowing"
+import getFollowers from "./routes/getFollwers"
 const app = express();
 const port = 3000;
 
@@ -26,6 +28,7 @@ app.use(express.json());
 app.listen(port, () => {
     console.log(`Connected to port ${port}`);
 });
+
 app.use('/post', postRoute);
 app.use('/signup', signupRoute) ;
 app.use('/signin', signinRoute) ;
@@ -37,3 +40,5 @@ app.use('/editprofile', editProfile) ;
 app.use('/user' ,userRoute)
 app.use('/followrequest' ,followrequest)
 app.use('/explore' ,explore)
+app.use('/getFollowers', getFollowers)
+app.use('/getFollowing' , getFollowing)

@@ -52,11 +52,11 @@ const Signin: React.FC = () => {
   };
 
   return (
-    <div className="h-[100vh] w-[100vw] text-white bg-black flex items-center  ">
+    <div className="h-[100vh] w-[100vw] text-white bg-black flex items-center justify-center  ">
       {loading ? (
         <Loading />
-      ) : (<div className="flex flex-col items-center justify-center text-white"> 
-        <h1 className="mb-14 text-4xl font-bold text-purple-500 border-2 p-2 rounded-lg bg-slate-700">VibeZone</h1>
+      ) : (<div className="flex flex-col items-center justify-center  w-[60%] text-white "> 
+        <h1 className="mb-14 text-5xl font-bold text-purple-500 border-2 p-2 rounded-lg bg-slate-700">VibeZone</h1>
       <h2 className="text-center text-purple-500 text-3xl font-bold"> Signin </h2>
         <div className="flex items-center justify-center h-[80%] w-[100vw]">
           <form onSubmit={handleSubmit(onSubmit)} className="mt-10 space-y-6 flex flex-col items-center justify-center">
@@ -70,7 +70,7 @@ const Signin: React.FC = () => {
                 {...register("username")}
                 type="text"
                 placeholder="Username"
-                className="block w-full text-black bg-slate-400 px-4 py-2 rounded-md shadow-sm  border-gray-300"
+                className="block w-full text-white bg-gray-900 px-4 py-2 rounded-md shadow-sm  border-gray-300"
               />
               {errors.username && (
                 <p className="mt-2 text-sm text-red-600">
@@ -88,7 +88,7 @@ const Signin: React.FC = () => {
                 {...register("password")}
                 type="password"
                 placeholder="Password"
-                className="block text-black bg-slate-400 w-full px-4 py-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300"
+                className="block text-white bg-gray-900 w-full px-4 py-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300"
               />
               {errors.password && (
                 <p className="mt-2 text-sm text-red-600">

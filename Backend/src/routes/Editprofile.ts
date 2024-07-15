@@ -9,7 +9,6 @@ router.get('/',async(req,res)=>{
     const user=  await prisma.user.findUnique({
        where:{id:parseInt(id.toString())} 
     })
-    console.log("THis is my User " ,user)
   if(user?.password) user.password=""
   res.status(200).send(user)
 })

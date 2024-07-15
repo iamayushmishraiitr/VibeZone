@@ -17,6 +17,8 @@ import axios from "axios";
 import Loader from "@/components/Loader";
 import toast from "react-hot-toast";
 import EditIcon from '@mui/icons-material/Edit';
+import { Navigate, useNavigate } from "react-router";
+
 const PostValidation = z.object({
   Bio: z.string().optional(),
   file: z.custom<File[]>(),
@@ -34,7 +36,6 @@ type Data = {
 export default function EditProfile() {
   const [imgUrl, setImgUrl] = useState<string[]>([]);
   const [data, setData] = useState<Data | null>(null);
-  const defaultBio = data?.bio;
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
@@ -57,6 +58,10 @@ export default function EditProfile() {
 
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
+    defaultValues: {
+      Bio: data?.bio,
+      file: []
+    }
   });
 
   async function onSubmit(values: z.infer<typeof PostValidation>) {
@@ -67,9 +72,9 @@ export default function EditProfile() {
         imgUrl,
         id: localStorage.getItem("userId"),
       });
-       toast.success("Profile Edited ")
+       toast.success("Profile Edited ");
     } catch (error) {
-      toast.error("Profile could not be edited")
+      toast.error("Profile could not be edited");
     } finally {
       setLoader(false);
     }
@@ -78,7 +83,8 @@ export default function EditProfile() {
   const handleDataFromChild = (data: string[]) => {
     setImgUrl(data);
   };
-
+const navigate= useNavigate() ;
+const user= localStorage.getItem("userId") ;
   return (
     <div className="text-white bg-black w-full pt-4 overflow-auto hide hide-scrollbar ">
       <div className="flex flex-row justify-center">
@@ -116,7 +122,6 @@ export default function EditProfile() {
                   <Textarea
                     className="w-[600px] h-[80px] md:w-99 text-white"
                     {...field}
-                    defaultValue={defaultBio}
                   />
                 </FormControl>
                 <FormMessage className="shad-form_message" />
@@ -127,7 +132,7 @@ export default function EditProfile() {
             <Button className="bg-purple-400" type="submit">
               Submit
             </Button>
-            <Button type="button" onClick={() => form.reset()}>
+            <Button type="button" onClick={() =>  navigate(`/people/${user}`)}>
               Cancel
             </Button>
           </div>

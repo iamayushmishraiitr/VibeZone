@@ -1,20 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type User = {
-  id     :        number      
-  username  :     string  
-  email     :     string
-  password    :   string
-  bio        :    string   
-  userimage  :     string   
-  liked     :     string[]
-  saved     :     string[]
-  request    :    string[]
-  requestrecieve :string[]
-  followers    :  string[]
-  following   :   string[]
-  post    :        string[]
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  bio: string;
+  userimage: string;
+  liked: string[];
+  saved: string[];
+  request: string[];
+  requestrecieve: string[];
+  followers: string[];
+  following: string[];
+  post: string[];
+};
+
+type UserResponse = {
+  data: User;
 };
 
 const Followers = ({ user }: { user: User }) => {
@@ -22,29 +27,34 @@ const Followers = ({ user }: { user: User }) => {
   const [state, setState] = useState<number>(1); // Default state is 1 (Follow)
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/editprofile", {
-        params: { id: localStorage.getItem("userId") },
-      })
-      .then((res) => setUser1(res.data))
-      .catch((error) => console.error("Error fetching user data:", error));
-  }, []); 
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/editprofile", {
+          params: { id: localStorage.getItem("userId") },
+        });
+        if(response)
+        setUser1(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     if (user1) {
-      const req = user1.request;
-      const req2 = user1.following;
-      const arr = req 
-      const arr2 = req2 
-      const find = arr && arr.find((item) => item === user.id.toString());
-      const find2 = arr2 && arr2.find((item) => item === user.id.toString());
+      const { request, following } = user1;
 
-      if (find) setState(2); 
-      if (find2) setState(3); 
+      const isRequested = request?.includes(user.id.toString());
+      const isFollowing = following?.includes(user.id.toString());
+
+      if (isRequested) setState(2);
+      if (isFollowing) setState(3);
     }
-  }, [user1]);
+  }, [user1, user.id]);
 
-  const request = async (user: User) => {
+  const handleRequest = async () => {
     try {
       if (state === 1) {
         setState(2);
@@ -54,6 +64,7 @@ const Followers = ({ user }: { user: User }) => {
           username: user.username,
           image: user.userimage,
         });
+        toast.success("Follow request sent.");
       } else if (state === 2) {
         setState(1);
         await axios.delete("http://localhost:3000/followrequest", {
@@ -64,25 +75,22 @@ const Followers = ({ user }: { user: User }) => {
             image: user.userimage,
           },
         });
+        toast.success("Follow request cancelled.");
       }
     } catch (err) {
       console.error("Error requesting follow:", err);
-      alert("Error requesting follow. Please try again later.");
+      toast.error("Error requesting follow. Please try again later.");
     }
   };
 
   return (
     <button
-      onClick={() => request(user)}
-      className="bg-purple-700 rounded-lg flex justify-center mt-2 items-center h-10 w-20"
+      onClick={handleRequest}
+      className={`bg-purple-700 rounded-lg flex justify-center mt-2 items-center h-10 w-20 ${
+        state === 3 ? "bg-green-700" : ""
+      }`}
     >
-      {state === 1 ? (
-        <span>Follow</span>
-      ) : state === 2 ? (
-        <span>Requested</span>
-      ) : state === 3 ? (
-        <span>Following</span>
-      ) : null}
+      {state === 1 ? "Follow" : state === 2 ? "Requested" : "Following"}
     </button>
   );
 };
