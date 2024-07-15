@@ -3,7 +3,7 @@ import Loader from "@/components/Loader";
 import TopCreators from "@/components/TopCreators";
 import axios from "axios";
 import  { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 const Explore = () => {
   const [data, setData] = useState<string[]>([]);
@@ -30,9 +30,14 @@ const Explore = () => {
         </div>
       ) : (
         <div className="h-[100vh] w-[100%] flex">
-          <ul className="flex flex-col w-[60%] gap-9">
-            <p>Explore Section</p>
-            <div className="w-[100%] h-[100vh] flex flex-col border  overflow-auto scrollbar-hide">
+          <ul className="flex flex-col w-[66%] gap-9">
+          <div className="w-full h-auto  flex flex-row  justify-center">
+          <TravelExploreIcon
+              sx={{ color: "white", fontSize: "36px" }}
+            />
+            <h1 className="text-3xl font-bold ml-2">Explore</h1>
+            </div>
+            <div className="w-[100%] h-[100vh] flex flex-col   overflow-auto hide-scrollbar">
               {data2 &&
                 data2.map((item: any, index: any) => (
                   <li
@@ -46,7 +51,7 @@ const Explore = () => {
                 ))}
             </div>
           </ul>
-          <div className="w-[40%] pl-3 bg-black">
+          <div className="w-[34%] pl-3 bg-black">
             <TopCreators />
           </div>
         </div>

@@ -4,7 +4,6 @@ import {
     Home,
     AddPhotoAlternateOutlined,
     GroupOutlined,
-    BookmarksOutlined,
     FavoriteBorder
   } from "@mui/icons-material"; 
 import { Button } from '@/components/ui/button';
@@ -49,9 +48,9 @@ const Front = () => {
   const {pathname}= useLocation() ;
   return (
     <div className='flex flex-row h-full w-full '>
-    <div className=" text-white bg-black h-screen left-0 top-0 sticky overflow-auto px-10 py-6 flex flex-col gap-6 max-md:hidden 2xl:w-[400px] pr-20 custom-scrollbar">
+    <div className=" text-white bg-black h-screen left-0 top-0 sticky overflow-auto px-6 py-6 flex flex-col gap-6 max-md:hidden w-[330px] pl-5  custom-scrollbar">
     <Link to="/">
-      <h1 className="width={200} height={400} text-4xl text-purple-700 font-bold  mb-5"> Vibezone</h1>
+      <h1 className="w-[200px] h-auto text-4xl text-purple-700 font-bold pl-5 mb-5"> Vibezone</h1>
     </Link>
     <div className="flex flex-col gap-2">
 

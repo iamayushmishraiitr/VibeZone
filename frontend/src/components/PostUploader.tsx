@@ -42,24 +42,30 @@ export default function PostUploader({
   });
   if (imgUrl) imgaeToparent(imgUrl);
   return (
-    <div {...getRootProps()}>
+    <div {...getRootProps()} >
       <input {...getInputProps()} />
       {img !== null ? (
         <div>
           <img src={`${imgUrl}`} alt="images" className="text-white" />
         </div>
       ) : (
-        <div>
+        <div >
           {imageurl  ? (
-            <img src={imageurl} alt="Place The image Here" />
+             <img className="h-[500px] w-[800px]  items-center"
+             src="./src/assets/fileupload.svg"
+             alt="Place The image Here"
+          />
           ) : (
-            <img
+            <div className="flex flex-col bg-slate-950 items-center h-[500px] w-[800px]">
+            <img className="h-[400px] w-[600px]  items-center"
               src="./src/assets/fileupload.svg"
               alt="Place The image Here"
-            />
+           />
+             <h3 className="text-white">Drag The Photo Here</h3>
+              </div>
           )}
 
-          <h3 className="text-white">Drag The Photo Here</h3>
+  
         </div>
       )}
     </div>

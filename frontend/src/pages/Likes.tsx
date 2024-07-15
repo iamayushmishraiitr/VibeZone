@@ -15,10 +15,10 @@ const Likes = () => {
         .catch((error)=>console.log(error))
         setLoader(false)
   },[])  
-  console.log("Here is liked Data adsa ",data)
+
   return (
-    <div className='flex h-[100vh] w-[100%] text-white bg-slate-800'>
-    <div className='bg-slate-800  h-[100%] w-[60%] overflow-auto'>
+    <div className='flex h-[100vh] w-[100%] text-white'>
+    <div className='bg-slate-800  h-[100%] w-[66%] overflow-auto'>
     {
   loader ? <Loader/> : 
    data && data.length === 0 ? <p>No Post Has Been Liked </p> : 
@@ -27,7 +27,7 @@ const Likes = () => {
 }
 
     </div>
-    <div className=" w-[40%] pl-3 bg-slate-900">
+    <div className=" w-[34%] pl-3 bg-black">
        <TopCreators/>
       </div>
     </div>

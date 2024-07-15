@@ -28,7 +28,7 @@ const UserCard = ({user}:{user:User}) => {
       className="rounded-full w-16 h-16"
     />
 
-    <div className="flex-center flex-col gap-3">
+    <div className="flex-center flex-col ">
       <p className="text-xl">
         {user.username}
       </p>

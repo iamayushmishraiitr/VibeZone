@@ -50,7 +50,7 @@ const Poststats = (props: any) => {
       console.log(error);
     }
   };
-  console.log("post stats ", data);
+  
   return (
     <div className="flex  justify-between w-[100%] pl- pr-[1.3] mt-2">
       <div onClick={() => like()} className="flex">

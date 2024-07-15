@@ -33,17 +33,17 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="h-[100vh] w-[100vw] pl-3 bg-slate-900 text-white">
+    <div className="h-[100vh] w-[100vw]  bg-slate-900 text-white">
       {loader ? ( 
          <div className="w-[74%]"> <Loader /> </div>
       ) : (
         <div className="h-[100vh] w-[100%] flex">
-          <ul className="flex flex-col w-[60%] gap-9">
-            <div className="w-[100%] h-[100vh] flex flex-col border rounded-3xl overflow-auto scrollbar-hide">
+          <ul className="flex flex-col w-[800px] gap-9">
+            <div className="w-[100%] h-[100%] flex flex-col   overflow-auto scrollbar-hide">
               <Postcards post={post} /> 
             </div>
           </ul>
-          <div className="w-[40%] pl-3 bg-black">
+          <div className="w-[400px] pl-3 bg-black">
             <TopCreators />
           </div>
         </div>
