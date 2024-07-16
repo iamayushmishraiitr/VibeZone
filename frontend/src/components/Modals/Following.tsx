@@ -59,7 +59,7 @@ const Following: React.FC = () => {
             <div className="bg-black h-[600px] w-[800px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="text-white text-center p-4">
             <h2  className="text-2xl  mb-4">
-              Followers List
+              Followed Users
             </h2>
             <div id="modal-description">
               {val && val.length > 0 ? (

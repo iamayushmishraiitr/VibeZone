@@ -11,7 +11,7 @@ const ExploreUser = (props:any) => {
   const confirm = async (id2:any,data1:any) => {
     setCon(false);
     try {
-    await  axios.post("http://localhost:3000/explore", {
+     axios.post("http://localhost:3000/explore", {
         id2: id2,
         id1: localStorage.getItem("userId"),
         data:JSON.stringify(data1)
@@ -26,7 +26,7 @@ const ExploreUser = (props:any) => {
   const Delete = async (id2:any) => {
     setDel(false);
     try {
-     await axios.delete("http://localhost:3000/explore", {
+      axios.delete("http://localhost:3000/explore", {
         data: {
           id2: id2,
           id1: localStorage.getItem("userId"),
